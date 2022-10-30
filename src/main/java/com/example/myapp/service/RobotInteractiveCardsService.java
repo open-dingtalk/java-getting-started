@@ -1,5 +1,6 @@
 package com.example.myapp.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dingtalkim_1_0.Client;
 import com.aliyun.dingtalkim_1_0.models.SendRobotInteractiveCardHeaders;
 import com.aliyun.dingtalkim_1_0.models.SendRobotInteractiveCardRequest;
@@ -13,11 +14,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
 /**
  * 互动卡片服务
+ *
  * @author Jack.kj@alibaba-inc.com
  * @date 2022/10/2022/10/19
  */
@@ -48,6 +51,7 @@ public class RobotInteractiveCardsService {
 
     /**
      * 机器人发送互动卡片
+     *
      * @param openConversationId 详见https://open.dingtalk.com/document/group/robots-send-interactive-cards
      * @return 用于业务方后续查看已读列表的查询key。
      */
@@ -60,14 +64,17 @@ public class RobotInteractiveCardsService {
         request.setOpenConversationId(openConversationId);
         request.setCardBizId("msgcardid" + UUID.randomUUID());
         request.setRobotCode(robotCode);
-        request.setCardData("{}");
+
+        JSONObject cardData = new JSONObject();
+        cardData.put("videoUrl", "https://cloud.video.taobao.com/play/u/null/p/1/e/6/t/1/d/ud/352793594610.mp4");
+        request.setCardData(cardData.toJSONString(cardData));
 
         try {
             SendRobotInteractiveCardResponse response = client.sendRobotInteractiveCardWithOptions(request, headers,
                     new RuntimeOptions());
             if (Objects.isNull(response) || Objects.isNull(response.getBody())) {
                 log.error("RobotInteractiveCardsService_send sendRobotInteractiveCardWithOptions return null, " +
-                                "response={}", response);
+                        "response={}", response);
                 return null;
             }
 
