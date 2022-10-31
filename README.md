@@ -1,3 +1,7 @@
+[![Build Status](https://github.com/open-dingtalk/java-getting-started/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)](https://github.com/open-dingtalk/java-getting-started/actions)
+![GitHub issues](https://img.shields.io/github/issues/open-dingtalk/java-getting-started)
+![GitHub](https://img.shields.io/github/license/open-dingtalk/java-getting-started)
+
 # 1 准备工作
 
 ## 1.1 DingTalk OpenAPI Java SDK下载
